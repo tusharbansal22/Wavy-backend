@@ -12,6 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/api/auth", require("./routes/authRoutes"));
-app.listen(8000, function () {
+app.listen(process.env.PORT, function () {
   console.log('Backend running');
 })
