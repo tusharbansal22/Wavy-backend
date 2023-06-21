@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const eventSchema = mongoose.Schema({
-  model_id :{
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
+  
   parent_user :{
     type: mongoose.Schema.Types.ObjectId,
     required: true
@@ -12,6 +9,6 @@ const eventSchema = mongoose.Schema({
   reg_users:{
     type: [mongoose.Schema.Types.ObjectId]
   }
-})
+},{timestamp:true})
 
 module.exports = mongoose.model('Event', eventSchema);
