@@ -10,8 +10,9 @@ const loginUser = asyncHandler( async (req,res)=>{
   const email = req.body.email;
   const password = req.body.password;
   await User.findOne({ email: email})
-  .then( (user)=>{
-    if(bcrypt.compare(user.password, password)){
+  .then( async(user)=>{
+    const val = await bcrypt.compare(password,user.password);
+    if(val){
       res.status(200).send(user);
     }
     else{
