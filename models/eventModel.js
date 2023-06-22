@@ -6,6 +6,7 @@ const eventSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true
   },
+  name:String,
   reg_users:{
     type: [mongoose.Schema.Types.ObjectId]
   }

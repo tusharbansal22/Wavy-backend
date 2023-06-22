@@ -35,14 +35,10 @@ const registerUser = asyncHandler( async (req,res)=>{
   const password = req.body.password;
   await User.findOne({ email: email})
     .then( async(user)=>{
-      if(user == null){
-            console.log(password,email);
+      if(user === null){
       const hashedPassword = await bcrypt.hash(password,10);
-      console.log(hashedPassword,email);
       const user = await User.create({ email: email,password: hashedPassword});
-      console.log(user);
-      res.status(200).send(user);
-        
+      res.status(200).send(user); 
       }
       else{
         res.status(400).send({message:"User already registered"});
@@ -54,6 +50,6 @@ const registerUser = asyncHandler( async (req,res)=>{
     })
 
 });
-  
+
 
 module.exports = {loginUser, registerUser};
