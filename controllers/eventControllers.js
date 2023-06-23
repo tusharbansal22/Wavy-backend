@@ -21,21 +21,24 @@ const createEvent = asyncHandler( async(req,res) => {
 //@access private
 
 const registerEvent = asyncHandler( async(req, res) => {
-  if(!req.body.userid || !req.body.eventid){
+  if(!req.body.useremail || !req.body.eventname){
     res.status(400).send({message : 'All details are required'});
   }
   else{
-    const event = await Event.findById(req.body.eventid);
-    if(event['reg_users'].find( (reg_user)=>{return reg_user == req.body.userid })){
+    const event = await Event.findOne({name:req.body.eventname});
+    const user = await User.findOne({email:req.body.useremail});
+   
+    if(event['reg_users'].includes( user._id ) ){
       res.status(400).send({message:'User already registered'});
     }
     else{
-      await Event.findByIdAndUpdate(req.body.eventid,{$push:{reg_users:req.body.userid}});
-    await User.findByIdAndUpdate(req.body.userid,{$push:{reg_users:req.body.eventid}});
+      await Event.findByIdAndUpdate(event._id,{$push:{reg_users:user._id}});
+    await User.findByIdAndUpdate(user._id,{$push:{reg_events:event._id}});
     res.status(200).send({message : 'Registered successfully'});
     }
     
   }
 });
 
-module.exports = {createEvent, registerEvent};
+
+module.exports = {createEvent, registerEvent };
