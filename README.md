@@ -68,9 +68,6 @@ This repository is for backend part of the Wavy project.
 | `eventname` | `string` | **Required**. Event's name |
 
 
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
 
 
 ## Environment Variables
